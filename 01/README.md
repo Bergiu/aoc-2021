@@ -33,6 +33,10 @@ The input code is put into this processor. After that the left button is used to
 
 The red box is used for input. The pink box is used for debugging. The blue box can be used for sorting and implements selection sort (which may be too slow) which isn't used in this task. The light blue box contains a randomizer, that inputs random numbers into the memory, which can be used for debugging. The yellow box is the main processor that runs our task code. The green box is a booster to improve the execution time by 2.5.
 
+![](./debug.png)
+
+The debugger prints all numbers that are saved in the memory bank.
+
 Now i have the numbers decoded in the memory bank and can start with the task. The program loops over all numbers in the memory and decodes them. `bit_block = ((2 ** 13) - 1)` creates a number with all zeros and 16 ones in the end. `val_i >> (shift * 13)` right shifts the current number with 13 multiplied by the current shift. The first decoded number in the number has `shift = 0`, the second `shift = 1` and so on. After that the shifted number is combined with the bit block with bitwise "and". This removes the part of the number that we don't need. Then we have decoded the number and can compare it.
 
 The program is compiled to mindustry code and copied to clipboard with `main.py a.amnd|xclip -selection c` and than inserted into the big processor. `main.py` is the compiler from [advanced mindustry code](https://github.com/Bergiu/AdvancedMindustryLogic/blob/main/main.py).
@@ -40,3 +44,8 @@ The program is compiled to mindustry code and copied to clipboard with `main.py 
 ![](./finished.png)
 
 After the program finished the result is displayed in the middle.
+
+
+![](./all.png)
+
+The picture shows all buildings. The first building block contains the test code from task a, the second contains the real code from a. The third contains the test code from b and the last contains the real code from b.
