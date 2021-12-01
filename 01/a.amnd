@@ -1,0 +1,61 @@
+input = bank1
+left = message2
+middle = message3
+right = message4
+
+left_cell = cell1
+right_cell = cell2
+
+print "Starting."
+printflush left
+
+read cell_len input 1
+
+print "Starting."
+print "\nInput length: "
+print cell_len
+printflush left
+
+increases = 0
+
+# iterate over all numbers
+prev = 0
+i = 2
+while i <= cell_len + 1{
+    read val_i input i
+    # min 162
+    # max 5604
+    bit_block = ((2 ** 13) - 1)  # 0..0 1111 1111 1111 1111
+    # from 0 to 3
+    shift = 0
+    while shift <= 3 {
+        # decode current number
+        num = (val_i >> (shift * 13)) & bit_block
+        if prev == 0 {
+            prev = num
+        } else {
+            if num > 0 {
+                # 0 means no number
+                if prev < num {
+                    increases += 1
+                }
+                prev = num
+            }
+        }
+        shift++
+    }
+    tmp = i - 1
+    print tmp
+    print "/"
+    print cell_len
+    printflush right
+    i++
+}
+
+print "Result: "
+print increases
+printflush middle
+
+print "Finished."
+printflush left
+@counter = @counter - 1

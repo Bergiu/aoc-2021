@@ -1,0 +1,21 @@
+# left shifts until 1 loops through the full floating number to get amount of bits
+print "Starting"
+printflush message1
+num = 1
+x = 1
+while x <= 65 {
+    tmp = num << x
+    if tmp == num {
+        print "Amount bit: "
+        print x
+        printflush message1
+        @counter -= 1  # stop
+    }
+    print x
+    print "/"
+    print 65
+    printflush message1
+    x++
+}
+
+# result: floats in mindustry have 64 bit
