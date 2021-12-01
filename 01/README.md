@@ -19,7 +19,7 @@ Now the idea was to leftshift numbers by 16*x, because then 4 numbers can be put
 
 During that another problem occurred. I though that the number in mindustry are either integers or floating numbers. But all numbers are represented as floating numbers. So i get into trouble with the above decoding. Because of floating point inaccuracy some values that are too high will be changed during write and read.
 
-This is solved by only using the mantisse part of the floating number and don't use the exponent. The mantisse of a 64 bit float is 52 bit, so i can put 4 numbers into one mantisse by leftshifting 13 times.
+This is solved by only using the mantissa part of the floating number and don't use the exponent. The mantissa of a 64 bit float is 52 bit, so i can put 4 numbers into one mantissa by leftshifting 13 times.
 
 The decoded input is written into `*_optimized`.
 
