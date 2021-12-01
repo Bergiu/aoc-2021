@@ -4,9 +4,9 @@ Input contains 2000 numbers, but a memory bank only has 512 cells. One solution 
 
 The idea is to left shift the second, third and fourth number and merge them with bitwise "or" to they match into one number:
 
-Example: 8, 16, 32, 64
-Bit repr: 0000000000001000, 0000000000010000, 0000000000100000, 0000000001000000
-Merged: 0000000001000000000000000010000000000000000100000000000000001000
+Example: 8, 16, 32, 64  
+Bit repr: 0000000000001000, 0000000000010000, 0000000000100000, 0000000001000000  
+Merged: 0000000001000000000000000010000000000000000100000000000000001000  
 As int: 18014535949484040
 
 This int will then be written into the memory cell and contains 4 numbers.
