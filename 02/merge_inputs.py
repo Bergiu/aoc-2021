@@ -3,14 +3,7 @@ from typing import List
 
 shifts = 13
 
-raw_numbers = [x for x in open("input_test_converted", "r").readlines()]
-numbers: List[int] = []
-for number in raw_numbers:
-    if number == "":
-        continue
-    tmp = number.split(" ")
-    numbers.append(int(tmp[0]))
-    numbers.append(int(tmp[1]))
+numbers = [int(x) for x in open("input_test_converted", "r").read().split()]
 
 
 # encode
