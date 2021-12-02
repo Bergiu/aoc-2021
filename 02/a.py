@@ -1,0 +1,1 @@
+print(int.__mul__(*map(sum, zip(*map(lambda op, count: (-count, 0) if len(op) < 4 else (0, count) if len(op) > 4 else (count, 0), *(lambda inp: (inp[::2], map(int, inp[1::2])))(open("input").read().split()))))))
