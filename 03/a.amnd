@@ -1,0 +1,126 @@
+input = bank1
+left = message2
+middle = message3
+right = message4
+
+left_cell = cell1
+right_cell = cell2
+
+print "Starting."
+printflush left
+
+read cell_len input 1
+
+print "Starting."
+print "\nInput length: "
+print cell_len
+print "\nCalculating mcb."
+printflush left
+
+line_len = 12  # 12 for normal input, 5 for test input
+# count_size = math.ceil(math.log(len(input), 2))
+count_size = 10  # size for every counter in the counting variable
+# amount_bits_that_match_in_one_counter = 52 // count_size = 5
+# amount_counters = math.ceil(line_len / amount_bits_that_match_in_one_counter) = 3
+count1 = 0  # needed for line_len < 5 (5*10 = 50 < 52)
+count2 = 0  # needed for line_len < 10
+count3 = 0  # needed for line_len < 15
+data_len = 0
+
+printflush middle
+# iterate over all numbers
+i = 2
+while i <= cell_len + 1{
+    read val_i input i
+    # min 162
+    # max 5604
+    bit_block = ((2 ** 13) - 1)
+    # from 0 to 3
+    shift = 0
+    while shift <= 3 {
+        number = (val_i >> (shift * 13)) & bit_block
+        if number != 0 {
+            data_len++
+            # decode current number
+            bit_pos = 0
+            while bit_pos < 5 and bit_pos < line_len {
+                # 0
+                moved_number = number >> bit_pos  # move current pos to right
+                bit = moved_number & 1  # and mask every other bit
+                val = bit << (count_size * bit_pos)
+                count1 += val
+                bit_pos++
+            }
+            bit_pos = 5
+            while bit_pos < 10 and bit_pos < line_len {
+                moved_number = number >> bit_pos  # move current pos to right
+                bit = moved_number & 1  # and mask every other bit
+                val = bit << (count_size * (bit_pos - 5))
+                count2 += val
+                bit_pos++
+            }
+            bit_pos = 10
+            while bit_pos < 15 and bit_pos < line_len {
+                moved_number = number >> bit_pos  # move current pos to right
+                bit = moved_number & 1  # and mask every other bit
+                val = bit << (count_size * (bit_pos - 10))
+                count3 += val
+                bit_pos++
+            }
+        }
+        shift++
+    }
+    tmp = i - 1
+    print tmp
+    print "/"
+    print cell_len
+    printflush right
+    i++
+}
+
+print "Starting."
+print "\nInput length: "
+print cell_len
+print "\nCalculated mcb."
+print "\nCalculating gamma."
+printflush left
+
+half = data_len / 2
+
+mask = (1 << count_size) - 1  # 00001111
+gamma = 0
+word_pos = 0
+while word_pos < 5 and word_pos < line_len {
+    count = (count1 >> (count_size * word_pos)) & mask
+    val = (1 << word_pos) * (count >= half)
+    gamma = gamma | val
+    word_pos += 1
+}
+while word_pos < 10 and word_pos < line_len {
+    count = (count2 >> (count_size * (word_pos - 5))) & mask
+    val = (1 << word_pos) * (count >= half)
+    gamma = gamma | val
+    word_pos += 1
+}
+while word_pos < 15 and word_pos < line_len {
+    count = (count3 >> (count_size * (word_pos - 10))) & mask
+    val = (1 << word_pos) * (count >= half)
+    gamma = gamma | val
+    word_pos += 1
+}
+
+
+invert = gamma ^ ((1 << line_len) - 1)
+power_consumption = gamma * invert
+
+print "Result:\n"
+print gamma
+print " * "
+print invert
+print "\n"
+print power_consumption
+printflush middle
+
+print "Finished."
+printflush left
+@counter = @counter - 1
