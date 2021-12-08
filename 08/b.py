@@ -1,8 +1,13 @@
 from functools import reduce
 
-lines = open("input").read().split("\n")
-input_ouput = [tuple(line.split("|")) for line in lines if line != ""]
-parsed = [tuple([set(y) for y in x.strip().split(" ")] for x in line) for line in input_ouput]
+lines = open("input").read().rstrip("\n").split("\n")
+parsed = [
+    tuple(map(
+        lambda site: list(map(set, site.split(" "))),
+        line.split(" | ")
+    ))
+    for line in lines
+]
 
 # every item in parsed is a tuple for one line of the input
 # the tuple contains two lists. the first list contains the
@@ -10,10 +15,16 @@ parsed = [tuple([set(y) for y in x.strip().split(" ")] for x in line) for line i
 # digital output values.
 
 
+CONVERT_MATRIX = [
+    set("abcefg"), set("cf"), set("acdeg"), set("acdfg"), set("bcdf"),
+    set("abdfg"), set("abdefg"), set("acf"), set("abcdefg"), set("abcdfg"),
+]
+
+
 def decode_all():
+    global CONVERT_MATRIX
     for line in parsed:
-        input = line[0]
-        output = line[1]
+        input, output = line
         # len(1) = 2
         one = list(filter(lambda x: len(x) == 2, input))[0]
         # len(4) = 4
@@ -59,34 +70,11 @@ def decode_all():
             a.pop(): 'a', b.pop(): 'b', c.pop(): 'c', d.pop(): 'd',
             e.pop(): 'e', f.pop(): 'f', g.pop(): 'g'
         }
-
-        def decode(num, decode_matrix):
-            num_decoded = ""
-            for char in num:
-                num_decoded += decode_matrix[char]
-            return set(num_decoded)
-
-        def convert(num):
-            convert_matrix = {
-                "0": set("abcefg"),
-                "1": set("cf"),
-                "2": set("acdeg"),
-                "3": set("acdfg"),
-                "4": set("bcdf"),
-                "5": set("abdfg"),
-                "6": set("abdefg"),
-                "7": set("acf"),
-                "8": set("abcdefg"),
-                "9": set("abcdfg"),
-            }
-            return [x[0] for x in convert_matrix.items() if x[1] == num][0]
-
-        real_num = ""
-        for encoded_num in output:
-            decoded_num = decode(encoded_num, decode_matrix)
-            num = convert(decoded_num)
-            real_num += num
-        yield int(real_num)
+        # replace all chars with their decode chars
+        decoded_nums = [{decode_matrix[char] for char in enc} for enc in output]
+        # replaced decoded chars with the number they represent
+        # and wrap those numbers to an int
+        yield int("".join(str(CONVERT_MATRIX.index(dec)) for dec in decoded_nums))
 
 
 if __name__ == '__main__':
