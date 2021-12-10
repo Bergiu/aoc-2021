@@ -1,0 +1,526 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> codeblock
+Rule 1     codeblock -> line
+Rule 2     codeblock -> codeblock line
+Rule 3     line -> chunks NEWLINE
+Rule 4     chunks -> chunk
+Rule 5     chunks -> chunks chunk
+Rule 6     chunks -> error chunk
+Rule 7     chunk -> LROUND RROUND
+Rule 8     chunk -> LSQUARE RSQUARE
+Rule 9     chunk -> LANGLE RANGLE
+Rule 10    chunk -> LCURLY RCURLY
+Rule 11    chunk -> LROUND chunks RROUND
+Rule 12    chunk -> LSQUARE chunks RSQUARE
+Rule 13    chunk -> LANGLE chunks RANGLE
+Rule 14    chunk -> LCURLY chunks RCURLY
+
+Terminals, with rules where they appear
+
+LANGLE               : 9 13
+LCURLY               : 10 14
+LROUND               : 7 11
+LSQUARE              : 8 12
+NEWLINE              : 3
+RANGLE               : 9 13
+RCURLY               : 10 14
+RROUND               : 7 11
+RSQUARE              : 8 12
+error                : 6
+
+Nonterminals, with rules where they appear
+
+chunk                : 4 5 6
+chunks               : 3 5 11 12 13 14
+codeblock            : 2 0
+line                 : 1 2
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . codeblock
+    (1) codeblock -> . line
+    (2) codeblock -> . codeblock line
+    (3) line -> . chunks NEWLINE
+    (4) chunks -> . chunk
+    (5) chunks -> . chunks chunk
+    (6) chunks -> . error chunk
+    (7) chunk -> . LROUND RROUND
+    (8) chunk -> . LSQUARE RSQUARE
+    (9) chunk -> . LANGLE RANGLE
+    (10) chunk -> . LCURLY RCURLY
+    (11) chunk -> . LROUND chunks RROUND
+    (12) chunk -> . LSQUARE chunks RSQUARE
+    (13) chunk -> . LANGLE chunks RANGLE
+    (14) chunk -> . LCURLY chunks RCURLY
+
+    error           shift and go to state 5
+    LROUND          shift and go to state 6
+    LSQUARE         shift and go to state 7
+    LANGLE          shift and go to state 8
+    LCURLY          shift and go to state 9
+
+    codeblock                      shift and go to state 1
+    line                           shift and go to state 2
+    chunks                         shift and go to state 3
+    chunk                          shift and go to state 4
+
+state 1
+
+    (0) S' -> codeblock .
+    (2) codeblock -> codeblock . line
+    (3) line -> . chunks NEWLINE
+    (4) chunks -> . chunk
+    (5) chunks -> . chunks chunk
+    (6) chunks -> . error chunk
+    (7) chunk -> . LROUND RROUND
+    (8) chunk -> . LSQUARE RSQUARE
+    (9) chunk -> . LANGLE RANGLE
+    (10) chunk -> . LCURLY RCURLY
+    (11) chunk -> . LROUND chunks RROUND
+    (12) chunk -> . LSQUARE chunks RSQUARE
+    (13) chunk -> . LANGLE chunks RANGLE
+    (14) chunk -> . LCURLY chunks RCURLY
+
+    error           shift and go to state 5
+    LROUND          shift and go to state 6
+    LSQUARE         shift and go to state 7
+    LANGLE          shift and go to state 8
+    LCURLY          shift and go to state 9
+
+    line                           shift and go to state 10
+    chunks                         shift and go to state 3
+    chunk                          shift and go to state 4
+
+state 2
+
+    (1) codeblock -> line .
+
+    error           reduce using rule 1 (codeblock -> line .)
+    LROUND          reduce using rule 1 (codeblock -> line .)
+    LSQUARE         reduce using rule 1 (codeblock -> line .)
+    LANGLE          reduce using rule 1 (codeblock -> line .)
+    LCURLY          reduce using rule 1 (codeblock -> line .)
+    $end            reduce using rule 1 (codeblock -> line .)
+
+
+state 3
+
+    (3) line -> chunks . NEWLINE
+    (5) chunks -> chunks . chunk
+    (7) chunk -> . LROUND RROUND
+    (8) chunk -> . LSQUARE RSQUARE
+    (9) chunk -> . LANGLE RANGLE
+    (10) chunk -> . LCURLY RCURLY
+    (11) chunk -> . LROUND chunks RROUND
+    (12) chunk -> . LSQUARE chunks RSQUARE
+    (13) chunk -> . LANGLE chunks RANGLE
+    (14) chunk -> . LCURLY chunks RCURLY
+
+    NEWLINE         shift and go to state 11
+    LROUND          shift and go to state 6
+    LSQUARE         shift and go to state 7
+    LANGLE          shift and go to state 8
+    LCURLY          shift and go to state 9
+
+    chunk                          shift and go to state 12
+
+state 4
+
+    (4) chunks -> chunk .
+
+    NEWLINE         reduce using rule 4 (chunks -> chunk .)
+    LROUND          reduce using rule 4 (chunks -> chunk .)
+    LSQUARE         reduce using rule 4 (chunks -> chunk .)
+    LANGLE          reduce using rule 4 (chunks -> chunk .)
+    LCURLY          reduce using rule 4 (chunks -> chunk .)
+    RROUND          reduce using rule 4 (chunks -> chunk .)
+    RSQUARE         reduce using rule 4 (chunks -> chunk .)
+    RANGLE          reduce using rule 4 (chunks -> chunk .)
+    RCURLY          reduce using rule 4 (chunks -> chunk .)
+
+
+state 5
+
+    (6) chunks -> error . chunk
+    (7) chunk -> . LROUND RROUND
+    (8) chunk -> . LSQUARE RSQUARE
+    (9) chunk -> . LANGLE RANGLE
+    (10) chunk -> . LCURLY RCURLY
+    (11) chunk -> . LROUND chunks RROUND
+    (12) chunk -> . LSQUARE chunks RSQUARE
+    (13) chunk -> . LANGLE chunks RANGLE
+    (14) chunk -> . LCURLY chunks RCURLY
+
+    LROUND          shift and go to state 6
+    LSQUARE         shift and go to state 7
+    LANGLE          shift and go to state 8
+    LCURLY          shift and go to state 9
+
+    chunk                          shift and go to state 13
+
+state 6
+
+    (7) chunk -> LROUND . RROUND
+    (11) chunk -> LROUND . chunks RROUND
+    (4) chunks -> . chunk
+    (5) chunks -> . chunks chunk
+    (6) chunks -> . error chunk
+    (7) chunk -> . LROUND RROUND
+    (8) chunk -> . LSQUARE RSQUARE
+    (9) chunk -> . LANGLE RANGLE
+    (10) chunk -> . LCURLY RCURLY
+    (11) chunk -> . LROUND chunks RROUND
+    (12) chunk -> . LSQUARE chunks RSQUARE
+    (13) chunk -> . LANGLE chunks RANGLE
+    (14) chunk -> . LCURLY chunks RCURLY
+
+    RROUND          shift and go to state 14
+    error           shift and go to state 5
+    LROUND          shift and go to state 6
+    LSQUARE         shift and go to state 7
+    LANGLE          shift and go to state 8
+    LCURLY          shift and go to state 9
+
+    chunks                         shift and go to state 15
+    chunk                          shift and go to state 4
+
+state 7
+
+    (8) chunk -> LSQUARE . RSQUARE
+    (12) chunk -> LSQUARE . chunks RSQUARE
+    (4) chunks -> . chunk
+    (5) chunks -> . chunks chunk
+    (6) chunks -> . error chunk
+    (7) chunk -> . LROUND RROUND
+    (8) chunk -> . LSQUARE RSQUARE
+    (9) chunk -> . LANGLE RANGLE
+    (10) chunk -> . LCURLY RCURLY
+    (11) chunk -> . LROUND chunks RROUND
+    (12) chunk -> . LSQUARE chunks RSQUARE
+    (13) chunk -> . LANGLE chunks RANGLE
+    (14) chunk -> . LCURLY chunks RCURLY
+
+    RSQUARE         shift and go to state 16
+    error           shift and go to state 5
+    LROUND          shift and go to state 6
+    LSQUARE         shift and go to state 7
+    LANGLE          shift and go to state 8
+    LCURLY          shift and go to state 9
+
+    chunks                         shift and go to state 17
+    chunk                          shift and go to state 4
+
+state 8
+
+    (9) chunk -> LANGLE . RANGLE
+    (13) chunk -> LANGLE . chunks RANGLE
+    (4) chunks -> . chunk
+    (5) chunks -> . chunks chunk
+    (6) chunks -> . error chunk
+    (7) chunk -> . LROUND RROUND
+    (8) chunk -> . LSQUARE RSQUARE
+    (9) chunk -> . LANGLE RANGLE
+    (10) chunk -> . LCURLY RCURLY
+    (11) chunk -> . LROUND chunks RROUND
+    (12) chunk -> . LSQUARE chunks RSQUARE
+    (13) chunk -> . LANGLE chunks RANGLE
+    (14) chunk -> . LCURLY chunks RCURLY
+
+    RANGLE          shift and go to state 18
+    error           shift and go to state 5
+    LROUND          shift and go to state 6
+    LSQUARE         shift and go to state 7
+    LANGLE          shift and go to state 8
+    LCURLY          shift and go to state 9
+
+    chunks                         shift and go to state 19
+    chunk                          shift and go to state 4
+
+state 9
+
+    (10) chunk -> LCURLY . RCURLY
+    (14) chunk -> LCURLY . chunks RCURLY
+    (4) chunks -> . chunk
+    (5) chunks -> . chunks chunk
+    (6) chunks -> . error chunk
+    (7) chunk -> . LROUND RROUND
+    (8) chunk -> . LSQUARE RSQUARE
+    (9) chunk -> . LANGLE RANGLE
+    (10) chunk -> . LCURLY RCURLY
+    (11) chunk -> . LROUND chunks RROUND
+    (12) chunk -> . LSQUARE chunks RSQUARE
+    (13) chunk -> . LANGLE chunks RANGLE
+    (14) chunk -> . LCURLY chunks RCURLY
+
+    RCURLY          shift and go to state 20
+    error           shift and go to state 5
+    LROUND          shift and go to state 6
+    LSQUARE         shift and go to state 7
+    LANGLE          shift and go to state 8
+    LCURLY          shift and go to state 9
+
+    chunks                         shift and go to state 21
+    chunk                          shift and go to state 4
+
+state 10
+
+    (2) codeblock -> codeblock line .
+
+    error           reduce using rule 2 (codeblock -> codeblock line .)
+    LROUND          reduce using rule 2 (codeblock -> codeblock line .)
+    LSQUARE         reduce using rule 2 (codeblock -> codeblock line .)
+    LANGLE          reduce using rule 2 (codeblock -> codeblock line .)
+    LCURLY          reduce using rule 2 (codeblock -> codeblock line .)
+    $end            reduce using rule 2 (codeblock -> codeblock line .)
+
+
+state 11
+
+    (3) line -> chunks NEWLINE .
+
+    error           reduce using rule 3 (line -> chunks NEWLINE .)
+    LROUND          reduce using rule 3 (line -> chunks NEWLINE .)
+    LSQUARE         reduce using rule 3 (line -> chunks NEWLINE .)
+    LANGLE          reduce using rule 3 (line -> chunks NEWLINE .)
+    LCURLY          reduce using rule 3 (line -> chunks NEWLINE .)
+    $end            reduce using rule 3 (line -> chunks NEWLINE .)
+
+
+state 12
+
+    (5) chunks -> chunks chunk .
+
+    NEWLINE         reduce using rule 5 (chunks -> chunks chunk .)
+    LROUND          reduce using rule 5 (chunks -> chunks chunk .)
+    LSQUARE         reduce using rule 5 (chunks -> chunks chunk .)
+    LANGLE          reduce using rule 5 (chunks -> chunks chunk .)
+    LCURLY          reduce using rule 5 (chunks -> chunks chunk .)
+    RROUND          reduce using rule 5 (chunks -> chunks chunk .)
+    RSQUARE         reduce using rule 5 (chunks -> chunks chunk .)
+    RANGLE          reduce using rule 5 (chunks -> chunks chunk .)
+    RCURLY          reduce using rule 5 (chunks -> chunks chunk .)
+
+
+state 13
+
+    (6) chunks -> error chunk .
+
+    NEWLINE         reduce using rule 6 (chunks -> error chunk .)
+    LROUND          reduce using rule 6 (chunks -> error chunk .)
+    LSQUARE         reduce using rule 6 (chunks -> error chunk .)
+    LANGLE          reduce using rule 6 (chunks -> error chunk .)
+    LCURLY          reduce using rule 6 (chunks -> error chunk .)
+    RROUND          reduce using rule 6 (chunks -> error chunk .)
+    RSQUARE         reduce using rule 6 (chunks -> error chunk .)
+    RANGLE          reduce using rule 6 (chunks -> error chunk .)
+    RCURLY          reduce using rule 6 (chunks -> error chunk .)
+
+
+state 14
+
+    (7) chunk -> LROUND RROUND .
+
+    NEWLINE         reduce using rule 7 (chunk -> LROUND RROUND .)
+    LROUND          reduce using rule 7 (chunk -> LROUND RROUND .)
+    LSQUARE         reduce using rule 7 (chunk -> LROUND RROUND .)
+    LANGLE          reduce using rule 7 (chunk -> LROUND RROUND .)
+    LCURLY          reduce using rule 7 (chunk -> LROUND RROUND .)
+    RROUND          reduce using rule 7 (chunk -> LROUND RROUND .)
+    RSQUARE         reduce using rule 7 (chunk -> LROUND RROUND .)
+    RANGLE          reduce using rule 7 (chunk -> LROUND RROUND .)
+    RCURLY          reduce using rule 7 (chunk -> LROUND RROUND .)
+
+
+state 15
+
+    (11) chunk -> LROUND chunks . RROUND
+    (5) chunks -> chunks . chunk
+    (7) chunk -> . LROUND RROUND
+    (8) chunk -> . LSQUARE RSQUARE
+    (9) chunk -> . LANGLE RANGLE
+    (10) chunk -> . LCURLY RCURLY
+    (11) chunk -> . LROUND chunks RROUND
+    (12) chunk -> . LSQUARE chunks RSQUARE
+    (13) chunk -> . LANGLE chunks RANGLE
+    (14) chunk -> . LCURLY chunks RCURLY
+
+    RROUND          shift and go to state 22
+    LROUND          shift and go to state 6
+    LSQUARE         shift and go to state 7
+    LANGLE          shift and go to state 8
+    LCURLY          shift and go to state 9
+
+    chunk                          shift and go to state 12
+
+state 16
+
+    (8) chunk -> LSQUARE RSQUARE .
+
+    NEWLINE         reduce using rule 8 (chunk -> LSQUARE RSQUARE .)
+    LROUND          reduce using rule 8 (chunk -> LSQUARE RSQUARE .)
+    LSQUARE         reduce using rule 8 (chunk -> LSQUARE RSQUARE .)
+    LANGLE          reduce using rule 8 (chunk -> LSQUARE RSQUARE .)
+    LCURLY          reduce using rule 8 (chunk -> LSQUARE RSQUARE .)
+    RROUND          reduce using rule 8 (chunk -> LSQUARE RSQUARE .)
+    RSQUARE         reduce using rule 8 (chunk -> LSQUARE RSQUARE .)
+    RANGLE          reduce using rule 8 (chunk -> LSQUARE RSQUARE .)
+    RCURLY          reduce using rule 8 (chunk -> LSQUARE RSQUARE .)
+
+
+state 17
+
+    (12) chunk -> LSQUARE chunks . RSQUARE
+    (5) chunks -> chunks . chunk
+    (7) chunk -> . LROUND RROUND
+    (8) chunk -> . LSQUARE RSQUARE
+    (9) chunk -> . LANGLE RANGLE
+    (10) chunk -> . LCURLY RCURLY
+    (11) chunk -> . LROUND chunks RROUND
+    (12) chunk -> . LSQUARE chunks RSQUARE
+    (13) chunk -> . LANGLE chunks RANGLE
+    (14) chunk -> . LCURLY chunks RCURLY
+
+    RSQUARE         shift and go to state 23
+    LROUND          shift and go to state 6
+    LSQUARE         shift and go to state 7
+    LANGLE          shift and go to state 8
+    LCURLY          shift and go to state 9
+
+    chunk                          shift and go to state 12
+
+state 18
+
+    (9) chunk -> LANGLE RANGLE .
+
+    NEWLINE         reduce using rule 9 (chunk -> LANGLE RANGLE .)
+    LROUND          reduce using rule 9 (chunk -> LANGLE RANGLE .)
+    LSQUARE         reduce using rule 9 (chunk -> LANGLE RANGLE .)
+    LANGLE          reduce using rule 9 (chunk -> LANGLE RANGLE .)
+    LCURLY          reduce using rule 9 (chunk -> LANGLE RANGLE .)
+    RROUND          reduce using rule 9 (chunk -> LANGLE RANGLE .)
+    RSQUARE         reduce using rule 9 (chunk -> LANGLE RANGLE .)
+    RANGLE          reduce using rule 9 (chunk -> LANGLE RANGLE .)
+    RCURLY          reduce using rule 9 (chunk -> LANGLE RANGLE .)
+
+
+state 19
+
+    (13) chunk -> LANGLE chunks . RANGLE
+    (5) chunks -> chunks . chunk
+    (7) chunk -> . LROUND RROUND
+    (8) chunk -> . LSQUARE RSQUARE
+    (9) chunk -> . LANGLE RANGLE
+    (10) chunk -> . LCURLY RCURLY
+    (11) chunk -> . LROUND chunks RROUND
+    (12) chunk -> . LSQUARE chunks RSQUARE
+    (13) chunk -> . LANGLE chunks RANGLE
+    (14) chunk -> . LCURLY chunks RCURLY
+
+    RANGLE          shift and go to state 24
+    LROUND          shift and go to state 6
+    LSQUARE         shift and go to state 7
+    LANGLE          shift and go to state 8
+    LCURLY          shift and go to state 9
+
+    chunk                          shift and go to state 12
+
+state 20
+
+    (10) chunk -> LCURLY RCURLY .
+
+    NEWLINE         reduce using rule 10 (chunk -> LCURLY RCURLY .)
+    LROUND          reduce using rule 10 (chunk -> LCURLY RCURLY .)
+    LSQUARE         reduce using rule 10 (chunk -> LCURLY RCURLY .)
+    LANGLE          reduce using rule 10 (chunk -> LCURLY RCURLY .)
+    LCURLY          reduce using rule 10 (chunk -> LCURLY RCURLY .)
+    RROUND          reduce using rule 10 (chunk -> LCURLY RCURLY .)
+    RSQUARE         reduce using rule 10 (chunk -> LCURLY RCURLY .)
+    RANGLE          reduce using rule 10 (chunk -> LCURLY RCURLY .)
+    RCURLY          reduce using rule 10 (chunk -> LCURLY RCURLY .)
+
+
+state 21
+
+    (14) chunk -> LCURLY chunks . RCURLY
+    (5) chunks -> chunks . chunk
+    (7) chunk -> . LROUND RROUND
+    (8) chunk -> . LSQUARE RSQUARE
+    (9) chunk -> . LANGLE RANGLE
+    (10) chunk -> . LCURLY RCURLY
+    (11) chunk -> . LROUND chunks RROUND
+    (12) chunk -> . LSQUARE chunks RSQUARE
+    (13) chunk -> . LANGLE chunks RANGLE
+    (14) chunk -> . LCURLY chunks RCURLY
+
+    RCURLY          shift and go to state 25
+    LROUND          shift and go to state 6
+    LSQUARE         shift and go to state 7
+    LANGLE          shift and go to state 8
+    LCURLY          shift and go to state 9
+
+    chunk                          shift and go to state 12
+
+state 22
+
+    (11) chunk -> LROUND chunks RROUND .
+
+    NEWLINE         reduce using rule 11 (chunk -> LROUND chunks RROUND .)
+    LROUND          reduce using rule 11 (chunk -> LROUND chunks RROUND .)
+    LSQUARE         reduce using rule 11 (chunk -> LROUND chunks RROUND .)
+    LANGLE          reduce using rule 11 (chunk -> LROUND chunks RROUND .)
+    LCURLY          reduce using rule 11 (chunk -> LROUND chunks RROUND .)
+    RROUND          reduce using rule 11 (chunk -> LROUND chunks RROUND .)
+    RSQUARE         reduce using rule 11 (chunk -> LROUND chunks RROUND .)
+    RANGLE          reduce using rule 11 (chunk -> LROUND chunks RROUND .)
+    RCURLY          reduce using rule 11 (chunk -> LROUND chunks RROUND .)
+
+
+state 23
+
+    (12) chunk -> LSQUARE chunks RSQUARE .
+
+    NEWLINE         reduce using rule 12 (chunk -> LSQUARE chunks RSQUARE .)
+    LROUND          reduce using rule 12 (chunk -> LSQUARE chunks RSQUARE .)
+    LSQUARE         reduce using rule 12 (chunk -> LSQUARE chunks RSQUARE .)
+    LANGLE          reduce using rule 12 (chunk -> LSQUARE chunks RSQUARE .)
+    LCURLY          reduce using rule 12 (chunk -> LSQUARE chunks RSQUARE .)
+    RROUND          reduce using rule 12 (chunk -> LSQUARE chunks RSQUARE .)
+    RSQUARE         reduce using rule 12 (chunk -> LSQUARE chunks RSQUARE .)
+    RANGLE          reduce using rule 12 (chunk -> LSQUARE chunks RSQUARE .)
+    RCURLY          reduce using rule 12 (chunk -> LSQUARE chunks RSQUARE .)
+
+
+state 24
+
+    (13) chunk -> LANGLE chunks RANGLE .
+
+    NEWLINE         reduce using rule 13 (chunk -> LANGLE chunks RANGLE .)
+    LROUND          reduce using rule 13 (chunk -> LANGLE chunks RANGLE .)
+    LSQUARE         reduce using rule 13 (chunk -> LANGLE chunks RANGLE .)
+    LANGLE          reduce using rule 13 (chunk -> LANGLE chunks RANGLE .)
+    LCURLY          reduce using rule 13 (chunk -> LANGLE chunks RANGLE .)
+    RROUND          reduce using rule 13 (chunk -> LANGLE chunks RANGLE .)
+    RSQUARE         reduce using rule 13 (chunk -> LANGLE chunks RANGLE .)
+    RANGLE          reduce using rule 13 (chunk -> LANGLE chunks RANGLE .)
+    RCURLY          reduce using rule 13 (chunk -> LANGLE chunks RANGLE .)
+
+
+state 25
+
+    (14) chunk -> LCURLY chunks RCURLY .
+
+    NEWLINE         reduce using rule 14 (chunk -> LCURLY chunks RCURLY .)
+    LROUND          reduce using rule 14 (chunk -> LCURLY chunks RCURLY .)
+    LSQUARE         reduce using rule 14 (chunk -> LCURLY chunks RCURLY .)
+    LANGLE          reduce using rule 14 (chunk -> LCURLY chunks RCURLY .)
+    LCURLY          reduce using rule 14 (chunk -> LCURLY chunks RCURLY .)
+    RROUND          reduce using rule 14 (chunk -> LCURLY chunks RCURLY .)
+    RSQUARE         reduce using rule 14 (chunk -> LCURLY chunks RCURLY .)
+    RANGLE          reduce using rule 14 (chunk -> LCURLY chunks RCURLY .)
+    RCURLY          reduce using rule 14 (chunk -> LCURLY chunks RCURLY .)
+
