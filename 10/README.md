@@ -1,3 +1,7 @@
+# Day 10
+
+Today we need to write a parser. I've used ply, the python implementation of yacc and lex. The tokens and grammar can be found in `parser.py`.
+
 # Neovim Support
 
 Required: Ale
