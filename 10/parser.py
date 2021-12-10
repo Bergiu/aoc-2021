@@ -121,9 +121,6 @@ def p_chunk2(p):
     p[0] = p[1] + p[2] + p[3]
 
 
-chunk_errors = []
-
-
 incomplete = []
 corrupted = []
 # should be: 3, 5, 6, 8, 9
