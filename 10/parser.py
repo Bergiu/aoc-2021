@@ -121,19 +121,6 @@ def p_chunk2(p):
     p[0] = p[1] + p[2] + p[3]
 
 
-precedence = (
-    ('left', 'LROUND'),
-    ('left', 'RROUND'),
-    ('left', 'LSQUARE'),
-    ('left', 'RSQUARE'),
-    ('left', 'LANGLE'),
-    ('left', 'RANGLE'),
-    ('left', 'LCURLY'),
-    ('left', 'RCURLY'),
-    ('left', 'NEWLINE'),
-)
-
-
 chunk_errors = []
 
 
