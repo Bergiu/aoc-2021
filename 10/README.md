@@ -9,3 +9,5 @@ Then copy the linter plugin into ale:
 2. `cp ale_aoc.vim ~/.nvim/plugged/ale/ale_linters/aoc`
 
 Last: Save your input as `.ale` file and open it with neovim
+
+![](./vim.png)
