@@ -1,5 +1,4 @@
 from itertools import product
-import numpy as np
 
 filename = "input"
 rounds = 100
@@ -18,8 +17,8 @@ def print_data():
         print()
     print()
 
-print_data()
 flash = 0
+dirs_raw = list(set(product(*[[-1, 0, 1]] * 2)) - set([(0, 0)]))
 for round in range(rounds):
     # increase
     for item in data:
@@ -28,7 +27,7 @@ for round in range(rounds):
     find_9 = list(filter(lambda part: part[2] > 9, data))
     for item in find_9:
         i, j, _ = item
-        dirs = np.add(list(set(product(*[[-1, 0, 1]] * 2)) - set([(0, 0)])), (i, j))
+        dirs = [(i + di, j + di) for di, dj in dirs_raw]
         adjacents = [data[x * 10 + y] for x, y in dirs if 0 <= x < 10 and 0 <= y < 10]
         for adjacent in adjacents:
             if adjacent[2] == 9:
@@ -38,6 +37,5 @@ for round in range(rounds):
                 adjacent[2] += 1
         item[2] = 0
         flash += 1
-    print_data()
 
 print("Flashes: ", flash)
