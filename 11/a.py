@@ -1,3 +1,6 @@
+from itertools import product
+import numpy as np
+
 filename = "input"
 rounds = 100
 
@@ -24,18 +27,9 @@ for round in range(rounds):
     # flash
     find_9 = list(filter(lambda part: part[2] > 9, data))
     for item in find_9:
-        directions = [
-            (item[0] - 1, item[1]),
-            (item[0] - 1, item[1] - 1),
-            (item[0] - 1, item[1] + 1),
-            (item[0] + 1, item[1]),
-            (item[0] + 1, item[1] - 1),
-            (item[0] + 1, item[1] + 1),
-            (item[0], item[1] - 1),
-            (item[0], item[1] + 1)
-        ]
-        adjacents = [data[dir[0] * 10 + dir[1]] for dir in directions
-                    if 0 <= dir[0] < 10 and 0 <= dir[1] < 10]
+        i, j, _ = item
+        dirs = np.add(list(set(product(*[[-1, 0, 1]] * 2)) - set([(0, 0)])), (i, j))
+        adjacents = [data[x * 10 + y] for x, y in dirs if 0 <= x < 10 and 0 <= y < 10]
         for adjacent in adjacents:
             if adjacent[2] == 9:
                 adjacent[2] = 0
