@@ -1,0 +1,55 @@
+function print_pair() {
+    if i1 % 2 == 0 {
+        pp_x = number1
+    } else {
+        pp_y = number1
+        print "("
+        print pp_x
+        print ","
+        print pp_y
+        print ")\n"
+    }
+}
+
+function print_num() {
+    print number1
+    if i1 == real_length_of_list1 - 1 {
+        printflush middle
+    } else {
+        print ","
+    }
+}
+
+
+# to use this, you need to set `id_is_in` to `false` before executing
+function in_dots() {
+    if i3 % 2 == 0 {
+        id_x = number3
+    } else {
+        id_y = number3
+        if pd_i == id_x and pd_j == id_y {
+            id_is_in = true
+        }
+    }
+}
+
+
+function print_dots() {
+    pd_j = 0
+    while pd_j <= max_y {
+        pd_i = 0
+        while pd_i <= max_x {
+            id_is_in = false
+            exec for_each3(in_dots, begin_dot_list, bits_per_number_in_one_float_dot, real_legth_of_dot_list)
+            if id_is_in {
+                print "#"
+            } else {
+                print "_"
+            }
+            pd_i++
+        }
+        print "\n"
+        pd_j++
+    }
+    printflush right
+}

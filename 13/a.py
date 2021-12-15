@@ -28,29 +28,28 @@ def a():
         # print("Fold", dir, val)
         if dir == 'x':
             to_fold = list(filter(lambda c: c[0] > val, dots))
-            to_drop = filter(lambda c: c[0] == val, dots)
             for c in to_fold:
                 new_p = [val - (c[0] - val), c[1]]
                 if new_p not in dots:
                     dots.append(new_p)
             max_x = (max_x - 1) // 2
+            to_drop = filter(lambda c: c[0] == val, dots)
             for fold in to_fold:
                 dots.remove(fold)
         else:
             to_fold = list(filter(lambda c: c[1] > val, dots))
-            to_drop = filter(lambda c: c[1] == val, dots)
             for c in to_fold:
                 new_p = [c[0], val - (c[1] - val)]
                 if new_p not in dots:
                     dots.append(new_p)
             max_y = (max_y - 1) // 2
+            to_drop = filter(lambda c: c[1] == val, dots)
             for fold in to_fold:
                 dots.remove(fold)
         # print("---")
         # print_dots()
 
 
-# print_dots()
 a()
 print(len(dots))
 # print_dots()

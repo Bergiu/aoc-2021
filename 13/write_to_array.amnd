@@ -1,0 +1,38 @@
+# GLOBALS:
+# FLOAT_USABLE_BIT_LENGTH: maximum length of a float (52)
+# input: the memory bank name that is used for the array
+
+
+function write_to_array(wta_value, wta_begin_list, wta_bits_per_number_in_one_float, wta_real_pos) {
+    # amount of numbers that match into one float
+    wta_numbers_per_float = FLOAT_USABLE_BIT_LENGTH // wta_bits_per_number_in_one_float
+    # relative cell position in the memory bank starting from the first cell of the list
+    wta_rel_cell_pos = wta_real_pos // wta_numbers_per_float
+    # absolut position of the cell in the memory bank
+    wta_abs_cell_pos = wta_begin_list + wta_rel_cell_pos
+    # relative pos inside the float
+    wta_relative_pos = wta_real_pos - (wta_rel_cell_pos * wta_numbers_per_float)
+    # get old number
+    read old_number input wta_abs_cell_pos
+    # left part of the mask
+    mask_left = (2 ** (FLOAT_USABLE_BIT_LENGTH - (wta_bits_per_number_in_one_float * (wta_relative_pos + 1)))) - 1 << (wta_bits_per_number_in_one_float * (wta_relative_pos + 1))
+    if wta_relative_pos > 0 {
+        mask_right = (2 ** (wta_bits_per_number_in_one_float * wta_relative_pos)) - 1
+    } else {
+        mask_right = 0
+    }
+    mask_old = mask_left | mask_right
+    mask_new = (2 ** wta_bits_per_number_in_one_float) - 1
+    old_number_enc = mask_old & old_number
+    new_number_enc = (mask_new & wta_value) << (wta_bits_per_number_in_one_float * wta_relative_pos)
+    new_entry = old_number_enc | new_number_enc
+    printflush right
+    write new_entry input wta_abs_cell_pos
+}
+
+
+# function test_replace() {
+#     fx_new_p_x = 0
+#     fx_x_i = 35
+#     exec write_to_array(fx_new_p_x, begin_dot_list, bits_per_number_in_one_float_dot, fx_x_i)
+# }

@@ -1,0 +1,91 @@
+# GLOBALS:
+# FLOAT_USABLE_BIT_LENGTH: maximum length of a float (52)
+# input: the memory bank name that is used for the array
+
+
+function for_each_limit(function_ptr_l, begin_list_l, bits_per_number_in_one_float_l, real_length_of_list_l, limit_l){
+    bit_block_l = ((2 ** bits_per_number_in_one_float_l) - 1)
+    cell_i_l = begin_list_l
+    i_l = 0
+    while (i_l < real_length_of_list_l) and (i_l < limit_l) {
+        read encoded_l input cell_i_l
+        shift_l = 0
+        shift_max_l = FLOAT_USABLE_BIT_LENGTH // bits_per_number_in_one_float_l
+        while (shift_l < shift_max_l) and (i_l < real_length_of_list_l) and (i_l < limit_l){
+            number_l = (encoded_l >> (shift_l * bits_per_number_in_one_float_l)) & bit_block_l
+            # set return pointer and execute function
+            op add retptr @counter 1
+            set @counter function_ptr_l
+            # increases
+            i_l++
+            shift_l++
+        }
+        cell_i_l++
+    }
+}
+
+function for_each1(function_ptr1, begin_list1, bits_per_number_in_one_float1, real_length_of_list1){
+    bit_block1 = ((2 ** bits_per_number_in_one_float1) - 1)
+    cell_i1 = begin_list1
+    i1 = 0
+    while i1 < real_length_of_list1 {
+        read encoded1 input cell_i1
+        shift1 = 0
+        shift_max1 = FLOAT_USABLE_BIT_LENGTH // bits_per_number_in_one_float1
+        while (shift1 < shift_max1) and (i1 < real_length_of_list1) {
+            number1 = (encoded1 >> (shift1 * bits_per_number_in_one_float1)) & bit_block1
+            # set return pointer and execute function
+            op add retptr @counter 1
+            set @counter function_ptr1
+            # increases
+            i1++
+            shift1++
+        }
+        cell_i1++
+    }
+}
+
+
+function for_each2(function_ptr2, begin_list2, bits_per_number_in_one_float2, real_length_of_list2){
+    bit_block2 = ((2 ** bits_per_number_in_one_float2) - 1)
+    cell_i2 = begin_list2
+    i2 = 0
+    while i2 < real_length_of_list2 {
+        read encoded2 input cell_i2
+        shift2 = 0
+        shift_max2 = FLOAT_USABLE_BIT_LENGTH // bits_per_number_in_one_float2
+        while (shift2 < shift_max2) and (i2 < real_length_of_list2) {
+            number2 = (encoded2 >> (shift2 * bits_per_number_in_one_float2)) & bit_block2
+            # set return pointer and execute function
+            op add retptr @counter 1
+            set @counter function_ptr2
+            # increases
+            i2++
+            shift2++
+        }
+        cell_i2++
+    }
+}
+
+
+function for_each3(function_ptr3, begin_list3, bits_per_number_in_one_float3, real_length_of_list3){
+    bit_block3 = ((2 ** bits_per_number_in_one_float3) - 1)
+    cell_i3 = begin_list3
+    i3 = 0
+    while i3 < real_length_of_list3 {
+        read encoded3 input cell_i3
+        shift3 = 0
+        shift_max3 = FLOAT_USABLE_BIT_LENGTH // bits_per_number_in_one_float3
+        while (shift3 < shift_max3) and (i3 < real_length_of_list3) {
+            number3 = (encoded3 >> (shift3 * bits_per_number_in_one_float3)) & bit_block3
+            # set return pointer and execute function
+            op add retptr @counter 1
+            set @counter function_ptr3
+            # increases
+            i3++
+            shift3++
+        }
+        cell_i3++
+    }
+}
+

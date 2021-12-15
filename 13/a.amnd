@@ -1,0 +1,246 @@
+input = bank1
+left = message2
+middle = message3
+right = message4
+
+left_cell = cell1
+right_cell = cell2
+
+import for_each.amnd
+import print.amnd
+import write_to_array.amnd
+
+print "Starting."
+printflush left
+
+FLOAT_USABLE_BIT_LENGTH = 52
+
+# [2]: Length of cells for dot list (n)
+# [3]: Bits per number in one float
+# [4]: Real length of dot list
+# [5;n+5): dot list decoded
+#          6,10,0,14,9,10...
+#          x1,y1,x2,y2...
+# [n+5]: Length of cells for fold list (m)
+# [n+6]: Bits per number in one float
+# [n+7]: Real length of fold list
+# [n+8;m+n+8): Fold instruction array decoded
+#              0,7,1,5
+#              DIR1,VAL1,DIR2,VAL2
+#              DIR = 0 represents 'x'
+#              DIR = 1 represents 'y'
+
+# dots
+read length_of_cells_dot_list input 2 # N
+read bits_per_number_in_one_float_dot input 3
+read real_legth_of_dot_list input 4
+begin_dot_list = 5
+
+# folds
+np5 = length_of_cells_dot_list + 5
+np6 = length_of_cells_dot_list + 6
+np7 = length_of_cells_dot_list + 7
+begin_fold_list = length_of_cells_dot_list + 8
+read length_of_cells_fold_list input np5 # M
+read bits_per_number_in_one_float_fold input np6
+read real_legth_of_fold_list input np7
+
+
+function fold_x() {
+    # for_each2
+    print i2
+    print "/"
+    print real_length_of_list2
+    printflush right
+    if i2 % 2 == 0 {
+        fx_x = number2
+    } else {
+        fx_y = number2
+        if fx_x > fm_val and fx_x <= max_x and fx_y <= max_y {
+            # fold
+            fx_new_p_x = fm_val - (fx_x - fm_val)
+            fx_x_i = i2 - 1
+            exec write_to_array(fx_new_p_x, begin_dot_list, bits_per_number_in_one_float_dot, fx_x_i)
+        }
+    }
+}
+
+
+function fold_y() {
+    # for_each2
+    print i2
+    print "/"
+    print real_length_of_list2
+    printflush right
+    if i2 % 2 == 0 {
+        fy_x = number2
+    } else {
+        fy_y = number2
+        if fy_y > fm_val and fy_x <= max_x and fy_y <= max_y {
+            # fold
+            fy_new_p_y = fm_val - (fy_y - fm_val)
+            fy_y_i = i2
+            exec write_to_array(fy_new_p_y, begin_dot_list, bits_per_number_in_one_float_dot, fy_y_i)
+        }
+    }
+}
+
+
+function fold_meth() {
+    # for_each1
+    if i_l % 2 == 0 {
+        fm_dir = number_l
+    } else {
+        fm_val = number_l
+        print "Folding "
+        if fm_dir == 1 {
+            # direction X
+            print "X="
+            print fm_val
+            printflush right
+            exec for_each2(fold_x, begin_dot_list, bits_per_number_in_one_float_dot, real_legth_of_dot_list)
+            max_x = (max_x - 1) // 2
+        } else {
+            # direction Y
+            print i_l
+            print "Y="
+            print fm_val
+            printflush right
+            exec for_each2(fold_y, begin_dot_list, bits_per_number_in_one_float_dot, real_legth_of_dot_list)
+            max_y = (max_y - 1) // 2
+        }
+    }
+}
+
+
+function find_max_x() {
+    print i1
+    print "/"
+    print real_length_of_list1
+    printflush right
+    if i1 % 2 == 0 {
+        fmx_x = number1
+        if fmx_x > max_x {
+            max_x = fmx_x
+        }
+    }
+}
+
+
+function find_max_y() {
+    print i1
+    print "/"
+    print real_length_of_list1
+    printflush right
+    if i1 % 2 == 1 {
+        fmy_y = number1
+        if fmy_y > max_y {
+            max_y = fmy_y
+        }
+    }
+}
+
+
+# XXX: works, but is to slow. Should need 2.7h to count an array of size 1500.
+# to use this, you need to set `cd_counter` to `0` before executing
+function count_dot() {
+    if i3 % 2 == 0 {
+        id_x = number3
+    } else {
+        id_y = number3
+        if ct_x == id_x and ct_y == id_y {
+            cd_counter += 1
+        }
+    }
+}
+
+
+function check_twice() {
+    print i1
+    print "/"
+    print real_length_of_list1
+    printflush right
+    if i1 % 2 == 0 {
+        ct_x = number1
+    } else {
+        ct_y = number1
+        cd_counter = 0
+        # build it like the in_dots method, but with a counter to 2
+        exec for_each3(count_dot, begin_dot_list, bits_per_number_in_one_float_dot, real_legth_of_dot_list)
+        if cd_counter >= 1 {
+            counter += 1
+        }
+        if cd_counter >= 2 {
+            remove_tmp = 1 - 1 / cd_counter
+            remove += remove_tmp
+        }
+    }
+}
+
+
+function count_numbers() {
+    counter = 0
+    remove = 0
+    # for each number check if it is twice
+    exec for_each1(check_twice, begin_dot_list, bits_per_number_in_one_float_dot, real_legth_of_dot_list)
+    print "Counter/Remove: "
+    print counter
+    print "/"
+    print remove
+    print "\nResult: "
+    result = counter - remove
+    print result
+    printflush middle
+}
+
+
+function a() {
+    max_x = 0
+    max_y = 0
+    print "Finding max x."
+    printflush middle
+    exec for_each1(find_max_x, begin_dot_list, bits_per_number_in_one_float_dot, real_legth_of_dot_list)
+    print "Finding max y."
+    printflush middle
+    exec for_each1(find_max_y, begin_dot_list, bits_per_number_in_one_float_dot, real_legth_of_dot_list)
+    print "Finished finding maximums: "
+    print max_x
+    print ","
+    print max_y
+    printflush middle
+    exec for_each_limit(fold_meth, begin_fold_list, bits_per_number_in_one_float_fold, real_legth_of_fold_list, 2)
+    print "Starting."
+    print "\nLength of dot list: "
+    print real_legth_of_dot_list
+    print "\nLength of fold list: "
+    print real_legth_of_fold_list
+    print "\nFinished calculating."
+    print "\nCounting numbers."
+    printflush left
+    exec count_numbers()
+}
+
+
+printflush middle
+printflush right
+
+print "Starting."
+print "\nLength of dot list: "
+print real_legth_of_dot_list
+print "\nLength of fold list: "
+print real_legth_of_fold_list
+print "\nCalculating."
+printflush left
+
+exec a()
+
+print "Starting."
+print "\nLength of dot list: "
+print real_legth_of_dot_list
+print "\nLength of fold list: "
+print real_legth_of_fold_list
+print "\nFinished calculating."
+print "\nFinished counting numbers."
+print "\nFinished."
+printflush left
+@counter = @counter - 1
