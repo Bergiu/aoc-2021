@@ -27,14 +27,8 @@ for i in range(5):
         data_expanded.append("".join(tmp_line))
 
 
-data = [
-    [None, *[
-        {'val': int(val), 'finished': False, 'cost': float('inf'), 'route': []}
-        for val in x
-    ], None]
-    for x in data_expanded]
-data.insert(0, [None] * len(data[0]))
-data.append([None] * len(data[0]))
+data = [[{'val': int(val), 'finished': False, 'cost': float('inf')} for val in x]
+        for x in data_expanded]
 
 
 # for line in data:
@@ -43,25 +37,45 @@ data.append([None] * len(data[0]))
 #     print()
 
 
-data[1][1]['cost'] = 0
-data[1][1]['finished'] = True
+data[0][0]['cost'] = 0
+data[0][0]['finished'] = True
 # pprint(data)
 
-stack = [(1, 1)]
+
+class Node:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    def __eq__(self, other):
+        return self.x == other.x and self.y == other.y
+
+    def __lt__(self, other):
+        return data[self.y][self.x]['cost'] < data[other.y][other.x]['cost']
+
+stack: List[Node] = [Node(1, 1)]
+heapq.heapify(stack)
+for x in range(len(data)):
+    for y in range(len(data[0])):
+        heapq.heappush(stack, Node(x, y))
+
+len_d = len(data)
+len_dx = len(data[0])
+dirs_raw = [(-1, 0), (1, 0), (0, 1), (0, -1)]
 i = 0
 while len(stack) > 0:
     i += 1
-    # smallest = max(stack, key=lambda x: data[x[1]][x[0]]['cost'])
-    smallest = min(range(len(stack)), key=lambda x: data[stack[x][1]][stack[x][0]]['cost'])
-    # print("Stack:", stack)
-    # print("smallest:", smallest)
-    if i % 100 == 0:
+    smallest = heapq.heappop(stack)
+    if i % 1000 == 0:
         print(i, "/", len(data) * (len(data[0])))
-    x, y = stack.pop(smallest)
+    x = smallest.x
+    y = smallest.y
     # print("X/Y:", x, y)
+    if data[y][x]['finished']:
+        continue
     data[y][x]['finished'] = True
-    dirs_raw = [(-1, 0), (1, 0), (0, 1), (0, -1)]
-    dirs = [(dx, dy) for dx, dy in [(x + d[0], y + d[1]) for d in dirs_raw] if data[dy][dx] is not None]
+    dirs = [(dx, dy) for dx, dy in [(x + d[0], y + d[1]) for d in dirs_raw]
+            if 0 < dx < len_dx and 0 < dy < len_d]
     cost = data[y][x]['cost']
     for dx, dy in dirs:
         item = data[dy][dx]
@@ -69,10 +83,6 @@ while len(stack) > 0:
             continue
         if item['cost'] > cost + item['val']:
             item['cost'] = cost + item['val']
-        try:
-            ind = stack.index((dx, dy))
-        except ValueError:
-            stack.append((dx, dy))
 
 # pprint(data)
 pprint(data[len(data) - 2][len(data[0]) - 2])
